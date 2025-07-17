@@ -10,5 +10,5 @@ def post_list(request):
 
 
 def post_details(requst, id):
-    post = get_object_or_404(Post, id=id, status=Post.Status.PUBLISHED)
+    post = get_object_or_404(Post.published, id=id)
     return render(requst, 'blog/post/detail.html', {'post': post})
