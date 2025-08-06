@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -53,6 +54,15 @@ def post_details(requst, year, month, day, post):
         publish__day=day
     )
 
+    post_tags_id = post.tags.values_list("id", flat=True)
+    similar_posts = Post.published.filter(
+        tags__in=post_tags_id
+    ).exclude(id=post.id)
+    similar_posts = similar_posts.annotate(
+        same_tags=Count("tags")
+    ).order_by('-same_tags', '-publish')[:4]
+
+
     comments = post.comments.filter(active=True)
 
     form = CommentForm()
@@ -63,7 +73,8 @@ def post_details(requst, year, month, day, post):
         {
             'post': post,
             'comments': comments,
-            'form': form
+            'form': form,
+            'similar_posts': similar_posts,
         }
     )
 
