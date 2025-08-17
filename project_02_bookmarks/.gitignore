@@ -6,3 +6,5 @@ __pycache__/
 
 # Enviroment Variables
 .env
+
+media/
