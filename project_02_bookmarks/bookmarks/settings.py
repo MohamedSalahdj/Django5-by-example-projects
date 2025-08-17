@@ -121,6 +121,9 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+STATIC_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / "media",
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
@@ -138,3 +141,5 @@ EMAIL_HOST_USER=config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS=config('EMAIL_USE_TLS', cast=bool)
 EMAIL_USE_SSL=config('EMAIL_USE_SSL', cast=bool)
+
+DEBUG=config('DEBUG', cast=bool)
