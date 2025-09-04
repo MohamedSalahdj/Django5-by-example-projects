@@ -143,3 +143,9 @@ EMAIL_USE_TLS=config('EMAIL_USE_TLS', cast=bool)
 EMAIL_USE_SSL=config('EMAIL_USE_SSL', cast=bool)
 
 DEBUG=config('DEBUG', cast=bool)
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'account.authentication.EmailAuthBackEnd',
+]
