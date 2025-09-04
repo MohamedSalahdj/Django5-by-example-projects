@@ -3,6 +3,8 @@ from django.contrib.auth import get_user_model
 
 from .models import Profile
 
+User = get_user_model()
+
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
@@ -13,13 +15,13 @@ class RegistrationForm(forms.ModelForm):
         label= 'password',
         widget= forms.PasswordInput
     ) 
-    passwod2 = forms.CharField(
+    password2 = forms.CharField(
         label= 'Repeat Password',
         widget= forms.PasswordInput
     )
 
     class Meta:
-        model = get_user_model()
+        model = User
         fields = ['username', 'first_name', 'email']
 
     def clean(self):
@@ -30,10 +32,14 @@ class RegistrationForm(forms.ModelForm):
         if password and password2 and password != password2:
             raise forms.ValidationError("Passwords don't match")
         
+        email = cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("Email already is use.")
+        
 
 class UserEditForm(forms.ModelForm):
     class Meta:
-        model = get_user_model()
+        model = User
         fields = ['first_name', 'last_name', 'email']
 
 
