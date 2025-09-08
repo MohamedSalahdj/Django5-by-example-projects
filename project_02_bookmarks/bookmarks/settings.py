@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'social_django',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -150,6 +151,12 @@ DEBUG=config('DEBUG', cast=bool)
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'account.authentication.EmailAuthBackEnd',
+    'social_core.backends.google.GoogleOAuth2',
 ]
 
 ALLOWED_HOSTS = ['mysite.com', 'localhost', '127.0.0.1']
+
+
+# Social Auth settings
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('GOOGLE_OAUTH2_SECRET')
