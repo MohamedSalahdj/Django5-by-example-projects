@@ -15,6 +15,11 @@ class Image(models.Model):
     image = models.ImageField(upload_to='images/%Y/%M/%d')
     description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    user_like = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name='images_liked',
+        blank=True
+    )
 
     class Meta:
         indexes = [
